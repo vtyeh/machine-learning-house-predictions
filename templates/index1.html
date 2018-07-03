@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>in constant flux</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+
+
+    <!-- Plugin CSS -->
+    <link href="../static/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/styles/creative.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">Anpanillow</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/priceForm">House Price Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Mortgage Risk Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Economic Growth Analysis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/tableau">Tableau</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Code</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto">
+                    <div class="container">
+                        <h1 class="text-uppercase">House Price Calculator</h1>
+                        <p>Select the desired features of your next home:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/calculate" method="post">    
+                        <!-- {{ form.csrf_token }} -->
+                        <table class="table table-condensed borderless" id="houseForm">
+                            <tr>
+                                <td>{{form.area.label}}:</td>
+                                <td>{{form.area()}} </td>
+                            </tr>
+                            <tr>
+                                <td>{{form.yearBuilt.label}}:</td>
+                                <td>{{form.yearBuilt()}} </td>
+                            </tr>
+                            <tr>
+                              <td>{{form.buildingType.label}}:</td>
+                              <td>{{form.buildingType()}}</td>
+                            </tr>
+                            <tr>
+                            <tr>
+                              <td>{{form.houseStyle.label}}:</td>
+                              <td>{{form.houseStyle()}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{form.bedrooms.label}}:</td>
+                                <td>{{form.bedrooms()}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{form.bathrooms.label}} (if available):</td>
+                                <td>{{form.bathrooms()}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{form.garage.label}}:</td>
+                                <td>{{form.garage()}} </td>
+                            </tr>
+                            <tr>
+                              <td>{{form.centralAir.label}}:</td>
+                              <td>{{form.centralAir()}}</td>
+                            </tr>
+                            <tr>
+                            <tr>
+                              <td>{{form.overallQuality.label}}:</td>
+                              <td>{{form.overallQuality()}}</td>
+                            </tr>
+                          </table>
+                        <p id="calculate"><input id="calculate" type="submit" class="btn btn-light btn-xl" value="Calculate!"></p>
+                    </form>
+
+                    <div class="prediction">
+                      <h2> The predicted house price is: <strong>{{prediction}}</strong> </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../static/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../static/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../static/js/creative.min.js"></script>
+
+  </body>
+
+</html>
+
+                
