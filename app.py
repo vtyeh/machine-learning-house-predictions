@@ -1,23 +1,21 @@
 from flask import render_template, request, flash, redirect, Flask
 from forms import HouseForms
+from forms2 import MorgageInputForm
 import pickle
+import dill
 import pandas as pd
 import os.path
 # from flask_wtf.csrf import CSRFProtect
-# from config import SECRET_KEY
 
 app = Flask(__name__)
 
 # csrf = CSRFProtect()
 
-# def create_app():
-#     app = Flask(__name__)
-#     csrf.init_app(app)
-# create_app()
-
 current_path = os.path.split(os.path.abspath(__file__))[0]
-with open(os.path.join(current_path,"clf_model.pkl"),"rb")as f:
+with open(os.path.join(current_path,"clf_model.pkl"), "rb")as f:
     model = pickle.load(f)
+with open(os.path.join(current_path, 'sgd-model.dill'), "rb") as f:
+    sgd_model = dill.load(f)
 
 def default_none(input_data):
     if input_data != None:
@@ -28,10 +26,6 @@ def default_none(input_data):
 @app.route("/")
 def homePage():
     return render_template("index.html")
-
-@app.route("/tableau")
-def tableau():
-    return render_template("tableau.html")
 
 @app.route("/priceForm")
 def root():
@@ -79,6 +73,63 @@ def index():
     title = "House Price Prediction",
     form = form,
     prediction = prediction)
+
+@app.route('/mortgageForm', methods=['GET', 'POST'])
+def mortgageForm():
+    global sgd_model
+    form = MorgageInputForm(csrf_enabled=False)
+    # if (request.method == 'POST') and (form.validate()):
+   
+
+    return render_template("mortgage.html",
+                           title='Mortgage Risk Assessment',
+                           form=form)
+                           
+
+@app.route('/mortgageCalc', methods=['GET', 'POST'])
+def mortgageCalc():
+    global sgd_model
+    form = MorgageInputForm(csrf_enabled=False)
+    # if (request.method == 'POST') and (form.validate()):
+    test_case = pd.DataFrame.from_dict({
+        'ORIG_AMT': [float(form.loan_amount.data)],
+        'CSCORE_B': [float(form.buyer_credit.data)],
+        'CSCORE_C': [default_none(form.cobuyer_credit.data)],
+        'OCLTV': [float(form.loan_to_value.data)],
+        'DTI': [float(form.debt_to_income.data)],
+        'STATE': [form.loan_state.data],
+        'PURPOSE': [form.loan_purpose.data],
+        'PROP_TYP': [form.property_type.data],
+        'OCC_STAT': [form.occupancy_type.data]
+    }
+    )
+
+    prediction = sgd_model.predict(test_case)[0]
+    print(prediction)
+
+    if prediction == 0:
+        result = 'OK'
+        status = 'Success'
+    elif prediction == 1:
+        result = 'Caution!'
+        status = 'Failure'
+    else:
+        result = 'N/A'
+        status = 'Alert'
+        prediction = -1
+
+    def color(result):
+        return 'green' if result == 0 else 'yellow'
+
+    style = color(prediction)
+
+    return render_template("mortgage.html",
+                           title='Mortgage Risk Assessment',
+                           form=form,
+                           result=result,
+                           prediction=prediction,
+                           status=status, style=style)
+
 
 if __name__ == ("__main__"):
     app.run(debug=True)

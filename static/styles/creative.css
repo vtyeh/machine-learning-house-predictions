@@ -48,9 +48,13 @@ h6 {
   background-size: 180%;
 }
 
-#services {
+#analysis {
   background-color: #85b2bc ;
   height: 610px;
+}
+
+#tableauSection {
+  background-color: #85b2bc;
 }
 
 .bg-dark {
@@ -136,7 +140,7 @@ img::-moz-selection {
 }
 
 
-#houseForm {
+#form {
   color: white;
 }
 

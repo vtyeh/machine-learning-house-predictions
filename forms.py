@@ -9,7 +9,7 @@ central_air = [("CentralAir_Y","Yes"),("CentralAir_N","No")]
 overall_quality_choice = [(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10)]
 bedrooms_choice = [(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8)]
 bathrooms_choice = [(1,1),(2,2),(3,3)]
-garage_choice = [(0,0),(1,1),(2,2),(3,3),(4,4)]
+garage_choice = [(0,"None"),(1,"One Car"),(2,"Two Cars"),(3,"Three Cars"),(4,"Four Cars")]
 
 class HouseForms(FlaskForm):
     buildingType = SelectField('Type of House', choices = building_type)
@@ -18,6 +18,6 @@ class HouseForms(FlaskForm):
     overallQuality = SelectField('Overall Quality of the House (1 = Poor, 10 = Excellent)', choices=overall_quality_choice)
     bedrooms  = SelectField('Number of Bedrooms', choices=bedrooms_choice)
     bathrooms= SelectField('Number of Bathrooms', choices=bathrooms_choice)
-    garage= SelectField('Number of Garage Cars', choices=garage_choice)
+    garage= SelectField('Garage Size', choices=garage_choice)
     area = FloatField("Squarefeet", validators = [DataRequired()])
     yearBuilt = FloatField("Year Built", validators = [DataRequired()])
