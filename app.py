@@ -6,7 +6,7 @@ import dill
 import pandas as pd
 import os.path
 import learn
-from learn import ExtractNormalized
+# from learn import ExtractNormalized
 # from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
