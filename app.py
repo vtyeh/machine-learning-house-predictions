@@ -39,7 +39,7 @@ def root():
 def index():
     global model
     form = HouseForms(csrf_enabled=False)
-    # if (request.method == "POST") and (form.validate()):
+
     test_case = pd.DataFrame.from_dict({
         "Overall Quality": [float(form.overallQuality.data)],
         "Squarefeet": [float(form.area.data)],
@@ -65,10 +65,7 @@ def index():
     prediction = model.predict(test_case)
     prediction = round(prediction[0],2)
     prediction = "${:,.2f}".format(prediction)
-    # else:
-    #     prediction = "N/A"
-    #     print("what")
-    
+
     return render_template("index1.html",
     title = "House Price Prediction",
     form = form,
@@ -90,7 +87,7 @@ def mortgageForm():
 def mortgageCalc():
     global sgd_model
     form = MorgageInputForm(csrf_enabled=False)
-    # if (request.method == 'POST') and (form.validate()):
+
     test_case = pd.DataFrame.from_dict({
         'ORIG_AMT': [float(form.loan_amount.data)],
         'CSCORE_B': [float(form.buyer_credit.data)],
@@ -114,21 +111,15 @@ def mortgageCalc():
         result = 'Caution!'
         status = 'Failure'
     else:
-        result = 'N/A'
+        result = 'Check Input'
         status = 'Alert'
-        prediction = -1
-
-    def color(result):
-        return 'green' if result == 0 else 'yellow'
-
-    style = color(prediction)
 
     return render_template("mortgage.html",
                            title='Mortgage Risk Assessment',
                            form=form,
                            result=result,
                            prediction=prediction,
-                           status=status, style=style)
+                           status=status)
 
 
 if __name__ == ("__main__"):
