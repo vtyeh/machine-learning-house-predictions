@@ -11,10 +11,10 @@ app = Flask(__name__)
 # csrf = CSRFProtect()
 
 current_path = os.path.split(os.path.abspath(__file__))[0]
-with open(os.path.join(current_path,"models/clf_model.pkl"), "rb")as f:
+with open(os.path.join(current_path,"models/clfModel.pkl"), "rb")as f:
     model = pickle.load(f)
-with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as f:
-    sgd_model = dill.load(f)
+with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as g:
+    sgd_model = dill.load(g)
 
 def default_none(input_data):
     if input_data != None:
