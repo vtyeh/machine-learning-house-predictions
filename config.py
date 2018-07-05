@@ -1,2 +1,0 @@
-SECRET_KEY = "v2xf82x9fT=4x98x2x9d6xcc7xef7xd87x1aK2xbc3t9o4x805x8d2x8a2x022x0c@"
-WTF_CSRF_SECRET_KEY = "6x95]@9xd82x084x9e3xc64x882xae2xb43x0c3xa123xa0f1xcb8x007xeb6xa41xb6f0xc82x1dc"

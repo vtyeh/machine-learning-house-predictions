@@ -9,7 +9,8 @@ central_air = [("CentralAir_Y","Yes"),("CentralAir_N","No")]
 overall_quality_choice = [(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10)]
 bedrooms_choice = [(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8)]
 bathrooms_choice = [(1,1),(2,2),(3,3)]
-garage_choice = [(0,"None"),(1,"One Car"),(2,"Two Cars"),(3,"Three Cars"),(4,"Four Cars")]
+# garage_choice = [(0,"None"),(1,"One Car"),(2,"Two Cars"),(3,"Three Cars"),(4,"Four Cars")]
+garage_choice = [(0,0),(1,1),(2,2),(3,3),(4,4)]
 
 class HouseForms(FlaskForm):
     buildingType = SelectField('Type of House', choices = building_type)
