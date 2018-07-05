@@ -16,8 +16,8 @@ app = Flask(__name__)
 current_path = os.path.split(os.path.abspath(__file__))[0]
 with open(os.path.join(current_path,"clf_model.pkl"), "rb")as f:
     model = pickle.load(f)
-with open(os.path.join(current_path, 'sgd-model.pkl'), "rb") as f:
-    sgd_model = pickle.load(f)
+with open(os.path.join(current_path, 'sgd-model.dill'), "rb") as f:
+    sgd_model = dill.load(f)
 
 def default_none(input_data):
     if input_data != None:
