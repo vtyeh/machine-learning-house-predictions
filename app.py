@@ -1,6 +1,5 @@
 from flask import render_template, request, flash, redirect, Flask
-from forms import HouseForms
-from forms2 import MorgageInputForm
+from forms import HouseForms, MortgageInputForm
 import pickle
 import dill
 import pandas as pd
@@ -12,9 +11,9 @@ app = Flask(__name__)
 # csrf = CSRFProtect()
 
 current_path = os.path.split(os.path.abspath(__file__))[0]
-with open(os.path.join(current_path,"clf_model.pkl"), "rb")as f:
+with open(os.path.join(current_path,"models/clf_model.pkl"), "rb")as f:
     model = pickle.load(f)
-with open(os.path.join(current_path, 'sgd-model.dill'), "rb") as f:
+with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as f:
     sgd_model = dill.load(f)
 
 def default_none(input_data):
@@ -74,7 +73,7 @@ def index():
 @app.route('/mortgageForm', methods=['GET', 'POST'])
 def mortgageForm():
     global sgd_model
-    form = MorgageInputForm(csrf_enabled=False)
+    form = MortgageInputForm(csrf_enabled=False)
     # if (request.method == 'POST') and (form.validate()):
    
 
@@ -86,7 +85,7 @@ def mortgageForm():
 @app.route('/mortgageCalc', methods=['GET', 'POST'])
 def mortgageCalc():
     global sgd_model
-    form = MorgageInputForm(csrf_enabled=False)
+    form = MortgageInputForm(csrf_enabled=False)
 
     test_case = pd.DataFrame.from_dict({
         'ORIG_AMT': [float(form.loan_amount.data)],
