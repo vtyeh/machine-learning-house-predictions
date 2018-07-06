@@ -13,8 +13,6 @@ app = Flask(__name__)
 current_path = os.path.split(os.path.abspath(__file__))[0]
 with open(os.path.join(current_path,"models/clf_model.dill"), "rb")as f:
     model = dill.load(f)
-with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as g:
-    sgd_model = dill.load(g)
 
 def default_none(input_data):
     if input_data != None:
@@ -69,6 +67,9 @@ def index():
     title = "House Price Prediction",
     form = form,
     prediction = prediction)
+
+with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as g:
+    sgd_model = dill.load(g)
 
 @app.route('/mortgageForm', methods=['GET', 'POST'])
 def mortgageForm():
