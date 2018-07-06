@@ -11,7 +11,7 @@ app = Flask(__name__)
 # csrf = CSRFProtect()
 
 current_path = os.path.split(os.path.abspath(__file__))[0]
-with open(os.path.join(current_path,"models/new_clf_model.pkl"), "rb")as f:
+with open(os.path.join(current_path,"models/clf_model_new.pkl"), "rb")as f:
     model = pickle.load(f)
 
 def default_none(input_data):
@@ -37,15 +37,46 @@ def index():
     global model
     form = HouseForms(csrf_enabled=False)
 
-    test_case = pd.DataFrame.from_dict({
-        "Overall Quality": [float(form.overallQuality.data)],
-        "Squarefeet": [float(form.area.data)],
-        "Bedrooms":[float(form.bedrooms.data)],
-        "Full Baths":[float(form.bathrooms.data)],
-        "Garage Cars":[float(form.garage.data)],
-        "Year Built":[float(form.yearBuilt.data)],
-    })
-    print(test_case)
+    overallquality = []
+    garagecars = []
+    area = []
+    fullbaths = []
+    yearbuilt = []
+    bedrooms = []
+    buildingtype = ""
+    centralair = ""
+    housestyle = ""
+
+    overallquality.append(form.overallQuality.data)
+    garagecars.append(form.garage.data)
+    area.append(form.area.data)
+    fullbaths.append(form.bathrooms.data)
+    yearbuilt.append(form.yearBuilt.data)
+    bedrooms.append(form.bedrooms.data)
+    buildingtype = form.buildingType.data
+    centralair = form.centralAir.data
+    housestyle = form.houseStyle.data
+
+
+    # print(model)
+    # test_case = pd.DataFrame.from_dict({
+    #     "Overall Quality": [form.overallQuality.data],
+    #     "Squarefeet": [form.area.data],
+    #     "Bedrooms":[form.bedrooms.data],
+    #     "Full Baths":[form.bathrooms.data],
+    #     "Garage Cars":[form.garage.data],
+    #     "Year Built":[form.yearBuilt.data],
+    # })
+    # print(test_case)
+    test_case = pd.DataFrame()
+
+    test_case["Overall Quality"] = overallquality
+    test_case["Squarefeet"] = area
+    test_case["Bedrooms"] = bedrooms
+    test_case["Full Baths"] = fullbaths
+    test_case["Garage Cars"] = garagecars
+    test_case["Year Built"] = yearbuilt
+
     dummylist = []
     dummylist = 15*[0]
     dummy_df = pd.DataFrame([dummylist])
@@ -54,14 +85,16 @@ def index():
     'HouseStyle_1.5Unf', 'HouseStyle_1Story', 'HouseStyle_2.5Fin',
     'HouseStyle_2.5Unf', 'HouseStyle_2Story', 'HouseStyle_SFoyer',
     'HouseStyle_SLvl']]=dummy_df
-    test_case.loc[0, form.buildingType.data] = 1
-    test_case.loc[0, form.houseStyle.data] = 1
-    test_case.loc[0, form.centralAir.data] = 1
-    print(f"added{test_case}")
+    test_case.loc[0, buildingtype] = 1
+    test_case.loc[0, centralair] = 1
+    test_case.loc[0, housestyle] = 1
+    print(test_case)
     
     prediction = model.predict(test_case)
+    print(prediction)
     prediction = round(prediction[0],2)
     prediction = "${:,.2f}".format(prediction)
+    print(prediction)
 
     return render_template("index1.html",
     title = "House Price Prediction",
@@ -75,9 +108,6 @@ with open(os.path.join(current_path, "models/sgd-model.dill"), "rb") as g:
 def mortgageForm():
     global sgd_model
     form = MortgageInputForm(csrf_enabled=False)
-    # if (request.method == 'POST') and (form.validate()):
-   
-
     return render_template("mortgage.html",
                            title='Mortgage Risk Assessment',
                            form=form)
