@@ -48,7 +48,10 @@
               <a class="nav-link js-scroll-trigger" href="/mortgageForm">Mortgage Risk Calculator</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Economic Growth Analysis</a>
+              <a class="nav-link js-scroll-trigger" href="/economic">Economic Growth Analysis</a>
+						</li>
+						<li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/contacts">Contact Us</a>
             </li>
           </ul>
         </div>
@@ -130,13 +133,61 @@
             </div>
         </div>
     </section>
-    <section id="tableauSection">
+    <section id="tableauSection" class="text-center">
       <div class="container"> 
-      <h3>An Overview of Mortgage Rates and Credit Scores<h3>
+      <h2>An Overview of Mortgage Rates and Credit Scores<h2>
 				<hr>
 				<div class='tableauPlaceholder' id='viz1530679998422' style='position: relative'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Mo&#47;MortgageRate_CreditRisk&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='MortgageRate_CreditRisk&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Mo&#47;MortgageRate_CreditRisk&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1530679998422');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
       </div>
 		</section>
+
+		<section id="codeAnalysis">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-sm-12">
+						<img class ="mortgage1" src="../static/img/mortgage1.png" width="600px" height="auto">
+						<h5>Rising mortgage rates pushing down home values</h5>
+						<p>The loan performance should consider within each geographical region. 
+							For a proof-of-concept perspective, we use state to group our dataset. 
+							Those continuous variables (e.g. loan amount, loan-to-value ration and 
+							debt-to-income ratio) are normalized by using their mean and standard
+							deviation by each state.
+						</p>
+						<h4>Logistic Regression</h4>
+						<p>We want to start with the very simple linear model to see how good we can achieve.</p>
+						<h4>Grid Search for Best Hyperparameter of Logistic Regression</h4>
+						<p>One of the most powerful feature of Scikit-Learn library is its grid 
+							search function. Here, we use cross-validation logistic model to search 
+							the best regulation parameter to give highest AUC score.</p>
+						<h4>Comments About Logistic Model</h4>
+						<p>Feature coefficients for the best logistic model we have:</p>
+						<img src="../static/img/mortgage2.png" width="500px" height="auto">
+						<h4>Stochastic Gradient Descent Classifier</h4>
+						<p>The next model to try is Support Vector Machine (SVM). 
+							However, SVM is notoriously slow especially when dealing with dataset size like here. 
+							Luckily, stochastic gradient descent based algorithm can speed up quite a bit. 
+							So, the second model to try is to use SGD classfier. It is very sensitive to the scale of the data. 
+							So we put in a StandardScaler transformer to normalize the whole feature matrix</p>
+						<h4>Comments on SGDClassifier</h4>
+						<p>SGD classifier did give a better AUC score (0.77). But the classification report shows that this model 
+							is similar to what we have by using logistic regression.</p>
+						<p>Coefficients in the model:</p>
+						<img src="../static/img/mortgage3.png" width="500px" height="auto">
+						<p>It would be good to grid search the SGDClassifier. This model is chosen to be the prediction model I use for the final prediction model.</p>
+						<img src="../static/img/mortgage4.png" width="500px" height="auto">
+						<h4>Gradient Boosting</h4>
+						<p>Gradient boosting technology is shown to be an effective method to find a low bias/low variance model. Here, we test out the gradient boosting method. Initial result shows it has similar performance as logistic regression or SGD classifier, using AUC score
+								AUC Score is: (0.79)</p>
+						<img src="../static/img/mortgage5.png" width="500px" height="auto">
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="footer">
+			<p>Copyright © Jenny, Neela, Saranya, Sonny, Venessa, Wei 2018</p>
+		</div>
 		
     <!-- Bootstrap core JavaScript -->
     <script src="../static/vendor/jquery/jquery.min.js"></script>

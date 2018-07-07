@@ -24,6 +24,14 @@ def default_none(input_data):
 def homePage():
     return render_template("index.html")
 
+@app.route("/economic")
+def economicPage():
+    return render_template("economic.html")
+
+@app.route("/contacts")
+def contactPage():
+    return render_template("contacts.html")
+
 @app.route("/priceForm")
 def root():
     global model

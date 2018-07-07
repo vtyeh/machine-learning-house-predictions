@@ -53,6 +53,10 @@ h6 {
   height: 610px;
 }
 
+.contactAlign {
+  text-align: center;
+}
+
 #tableauSection {
   background-color: #85b2bc;
 }
@@ -176,6 +180,18 @@ p {
    color: white;
    text-align: center;
    font-size: 10px;
+}
+
+#codeAnalysis h2, #codeAnalysis h4, #codeAnalysis h5, #codeAnalysis p{
+  color: black;
+}
+
+.mortgage1 {
+  float: left;
+}
+
+.avatar {
+  border-radius: 200px;
 }
 
 @media (min-width: 992px) {
